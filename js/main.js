@@ -1,7 +1,16 @@
-// Executes when document ready
-$( 
-    getTwoBlocks()
-  );
+// Load event handler: Executes when document ready
+$( function(){
+    var userLocation = getBrowserLocation();
+    getTwoBlocks();
+});
+
+function getBrowserLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position){
+            console.log(position.coords.latitude, position.coords.longitude);
+        });
+    }
+}
 
 function changeSpan(number){
     // alert("YAY");
