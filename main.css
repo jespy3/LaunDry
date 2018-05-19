@@ -1,0 +1,11 @@
+#Next-six-hours {
+    background-color: #ccc;
+    margin: 0 auto;
+    text-align: center;
+    border: 1px solid red;
+}
+
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
