@@ -29,7 +29,8 @@ function test_guessAddress(usertext) {
 
     //console.log(JSON.stringify(lookupResults));
 
-    var lookupresults = JSON.parse(fetch(autocompleteUri).then((resp) => resp.json()));
+    var lookupresults = JSON.parse(fetch(autocompleteUri).then((resp) => 
+        {return Promise.resolve(resp)}).then(resp => resp.json()));
     console.log(lookupresults);
     return lookupresults.predictions[0];    
 }
@@ -61,7 +62,7 @@ function test_getWeatherData(lat, long) {
     xhr.send(null); */
 
     var weatherForcecast = JSON.parse(
-        fetch(fulluri).then((resp) => resp.json())
+        fetch(fulluri).then((resp) => {return Promise.resolve(resp)}).then(resp => resp.json())
     );
 
     console.log(weatherForcecast);
@@ -92,7 +93,7 @@ function test_getAddressLocation(prediction) {
     }
     xhr.send(null); */
 
-    var lookupResults = JSON.parse(fetch(detailsUri).then((resp) => resp.json()));
+    var lookupResults = JSON.parse(fetch(detailsUri).then((resp) => {return Promise.resolve(resp)}).then(resp => resp.json()));
     var locat = lookupResults.result.geometry.location;
     console.log(locat)
     return locat;
