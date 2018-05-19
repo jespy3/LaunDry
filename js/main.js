@@ -91,10 +91,10 @@ function getTwoBlocks(){
         } else {
             document.getElementById("mainStatement").innerHTML = "You can hang your washing out it isn't due to rain for the next 6 hours"
 
-        }
-
-
+        }       
         
+        
+
     }
     xhr.send(null);
 }
@@ -142,7 +142,7 @@ function findNextTime(){
 
             }else{
                 document.getElementById("mainStatement").innerHTML = "Sorry looking at the weather forecast there doesn't look like a gap in the rain for the next 3 days, check back later";
- 
+
             }
 
 
