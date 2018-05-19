@@ -11,7 +11,7 @@ function guessAddress() {
     var autocompleteUri = baseUri + autocomplete + "json?" + mapsapikey + "&" + latlong + "&" + components
      + "&" + radius + "&" + types + "&" + input;
 
-    //console.log(autocompleteUri);
+    console.log(autocompleteUri);
     var lookupResults;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", autocompleteUri, true);
@@ -25,5 +25,33 @@ function guessAddress() {
 
     //console.log(JSON.stringify(lookupResults));
 
-    //return lookupResults.predictions[0];
+    return lookupResults.predictions[0];
+}
+
+/* function lookupAddressLocation() {
+
+} */
+
+function getAddressLocation(prediction) {
+    var placeID = prediction.place_id;
+    var mapsapikey = "key=AIzaSyAXAnWVJ3Zjo0lwBw-6fKzvO-w7--W7_U4";
+    var baseUri = "https://maps.googleapis.com/maps/api/place/";
+    var detailsUri = baseUri + "details/JSON?" + mapsapikey + "&placeid=" + placeID;
+
+    console.log(detailsUri);
+    var lookupResults;
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", detailsUri, true);
+    xhr.onload = function () {
+        //lookupResults = JSON.parse(xhr.responseText);
+        results = JSON.parse(xhr.responseText);
+        console.log(results);
+
+    }
+    xhr.send(null);
+
+    var locat = results.result.geometry.location;
+    console.log(JSON.stringify(locat));
+
+    return locat;
 }
