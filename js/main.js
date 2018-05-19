@@ -7,6 +7,7 @@ $( function(){
             
             // call into weather api and get weather
             getWeatherData(position.coords.latitude, position.coords.longitude);
+            
         });
     }
     getTwoBlocks();
@@ -57,7 +58,30 @@ function getWeatherData(lat, long) {
         forecastdata = JSON.parse(xhr.responseText);      
     }
     xhr.send(null);
-    return forecastdata;
+}
+
+// Processes the forecastData and changes DOM elements
+function processWeatherData(forecastData){
+    // Turns button to read the weather (eg. Rain/Cloudy/Sunny etc.)
+    document.getElementById("blockOne").innerHTML = forecastData.list[0].weather[0].main;
+    document.getElementById("blockTwo").innerHTML = forecastData.list[1].weather[0].main;
+
+    document.getElementById("weatherTitleThreeHours").innerHTML ="Weather in the next 3 hours"
+    document.getElementById("weatherTitleThreeToSix").innerHTML  ="Weather for 3 to 6 hours "
+
+    blockOne = forecastData.list[0].weather[0].main;
+    blockTwo = forecastData.list[1].weather[0].main;
+    changeButtonColor(blockOne, "blockOne");
+    changeButtonColor(blockTwo, "blockTwo");
+
+    if (blockOne == "Rain" || blockTwo =="Rain"){
+        vartest = findNextTime();
+        
+    } else {
+        document.getElementById("mainStatement").innerHTML = "You can hang your washing out it isn't due to rain for the next 6 hours"
+
+    }
+
 }
 
 function getTwoBlocks(){
