@@ -18,19 +18,24 @@
 
     </head>
     <body>
+        <!-- Jumbotron Header -->
         <div class="jumbotron text-center">
             <h1>LaunDry</h1>
         </div>
+        
+        <!-- Main container -->
+        <div id="main-container" class="container text-center">
             
-        <div class="container text-center">
-            <div class="row">
+            <!-- Fetch button -->
+            <div id="fetch-button" class="row">
                 <div class="col-12">
                     <p>SET LOCATION</p>
                     <a class="btn btn-primary btn-lg mx-auto" role="button" onclick="getTwoBlocks()">Fetch</a>
                 </div>
-            </div>
+            </div> <!-- /fetch button -->
 
-            <div class="row">
+            <!-- Central card -->
+            <div id="central-card" class="row">
                 <div class="col-12">
                     <div class="card mx-auto" style="width: 18rem;">
                         <img class="card-img-top" src="sunny.gif" alt="Card image cap">
@@ -40,10 +45,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- /central-card -->
             
-
-            <div class="row">
+            <!-- Prediction blocks -->
+            <div id="prediction-blocks" class="row">
                 <div class="col-4"></div>
                 <div class="col-2">
                     <p id="datetime"></p>
@@ -56,9 +61,9 @@
                     <button id="blockTwo" type="button" class="btn btn-warning btn-lg">Sunny</button>
                 </div>
                 <div class="col-4"></div>
-            </div>
-
-        </div>
+            </div> <!-- /prediction-blocks -->
+            
+        </div> <!-- /main-container -->
 
 
 
