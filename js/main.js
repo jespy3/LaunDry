@@ -22,8 +22,20 @@ function testapi(){
     xhr.send(null);
 }
 
+// This function assumes that you are passing as its argument the returned value from address.js/getAddressLocation().
 function getWeatherData(latlong) {
-    
+    var apikey = "ab3b534277236c4d3ea8a475ecef0705";
+    var uri = "http://api.openweathermap.org/data/2.5/forecast";
+
+    var fulluri = uri + "?lat=" + latlong.lat + "&lon=" + latlong.lng + "&mode=json&APPID=" + apikey;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", fulluri, true);
+    xhr.onload = function () {
+        var forecastdata = JSON.parse(xhr.responseText);
+        return forecastdata        
+    }
+    xhr.send(null);
 }
 
 function getTwoBlocks(){
