@@ -61,7 +61,7 @@ function getTwoBlocks(){
         changeButtonColor(blockTwo, "blockTwo");
 
         if (blockOne == "Rain" || blockTwo =="Rain"){
-            document.getElementById("mainStatement").innerHTML = "Do not hang out washing"
+            document.getElementById("mainStatement").innerHTML = "Do not hang out your washing"
         } else {
             document.getElementById("mainStatement").innerHTML = "It will not rain for the next 6"
         }
@@ -80,5 +80,24 @@ function changeButtonColor(forecast, buttonId) {
         myButton.borderColor = 'blue';
         myButton.color = 'white';
     }
+    // Changes button color weather 
+    if (forecast == "Clouds") {
+        myButton = document.getElementById(buttonId).style
+        myButton.backgroundColor = 'grey';
+        myButton.borderColor = 'grey';
+        myButton.color = 'white';
+    }
+
+        if (forecast == "Sun") {
+        myButton = document.getElementById(buttonId).style
+        myButton.backgroundColor = 'yellow';
+        myButton.borderColor = 'yellow';
+        myButton.color = 'white';
+    }
 }
+
+function changeImage(){
+
+}
+
 
