@@ -2,11 +2,9 @@ function onLoad() {
     /* The collection of functions that are called upon loading the application.
     */
     getTwoBlocks();
-
-    $.getscript("times.js",function(){
-        updateDate();
-    });
+    updateDate();
 }
+
 
 function changeSpan(number){
     // alert("YAY");
