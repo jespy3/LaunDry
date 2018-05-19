@@ -10,7 +10,7 @@ $( function(){
             
         });
     }
-    getTwoBlocks();
+    //getTwoBlocks();
 });
 
 function changeSpan(number){
@@ -55,7 +55,8 @@ function getWeatherData(lat, long) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", fulluri, true);
     xhr.onload = function () {
-        forecastdata = JSON.parse(xhr.responseText);      
+        forecastdata = JSON.parse(xhr.responseText); 
+        processWeatherData(forecastdata);
     }
     xhr.send(null);
 }
