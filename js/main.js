@@ -55,8 +55,7 @@ function getWeatherData(lat, long) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", fulluri, true);
     xhr.onload = function () {
-        forecastdata = JSON.parse(xhr.responseText); 
-        processWeatherData(forecastdata);
+        forecastdata = JSON.parse(xhr.responseText);      
     }
     xhr.send(null);
 }
@@ -74,6 +73,8 @@ function processWeatherData(forecastData){
     blockTwo = forecastData.list[1].weather[0].main;
     changeButtonColor(blockOne, "blockOne");
     changeButtonColor(blockTwo, "blockTwo");
+
+    changeImage(blockOne, blockTwo, "mainImage");
 
     if (blockOne == "Rain" || blockTwo =="Rain"){
         vartest = findNextTime();
@@ -166,18 +167,17 @@ function findNextTime(){
 
             }else{
                 document.getElementById("mainStatement").innerHTML = "Sorry looking at the weather forecast there doesn't look like a gap in the rain for the next 3 days, check back later";
-
             }
-
-
-        }
-        
+        }   
     }
     xhr.send(null);
 }
 
-function changeImage(){
+function changeImage(blockOne, blockTwo, imageId){
+    if(blockOne || blockTwo == "Rain"){
+        document.getElementById(mainImage).src = "images/no.gif";
+    }else{
+        document.getElementById(mainImage).src = "images/yes.gif"
+    }
 
 }
-
-
