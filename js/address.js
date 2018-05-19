@@ -2,13 +2,13 @@ function guessAddress(usertext) {
     var mapsapikey = "key=AIzaSyAXAnWVJ3Zjo0lwBw-6fKzvO-w7--W7_U4";
     var baseUri = "https://maps.googleapis.com/maps/api/place/";
     var autocomplete = "autocomplete/";
-    var latlong = "location=-36.849998,174.783325";
+    var latlong = "location=-36.849998,174.783325";  // Lat & long for Auckland taken from the city.list.json file
     var components = "components=country:nz";
     var radius = "radius=200000"; // 200,000 metres / 200 kilometres
     var types = "types=address";
-    //var input = "input=" + usertext;
+    var input = "input=" + usertext;
 
-    var input = "input=12 Esmonde Rd";
+    //var input = "input=12 Esmonde Rd";
 
     //console.log("Hi!");
     var autocompleteUri = baseUri + autocomplete + "json?" + mapsapikey + "&" + latlong + "&" + components
@@ -24,7 +24,9 @@ function guessAddress(usertext) {
         //console.log(results);
         // return lookupResults.predictions[0];
         //console.log(JSON.stringify(lookupResults))
-        var location = getAddressLocation(lookupResults.predictions[0])
+        var location = getAddressLocation(lookupResults.predictions[0]); 
+        // latitude is under .lat, longitude is under .lng
+        return location;
     }
     xhr.send(null);
 

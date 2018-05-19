@@ -30,8 +30,27 @@ function testapi(){
     xhr.send(null);
 }
 
-function getWeatherData(latlong) {
-    
+function testIntegration() {
+    var userAddress = "12 Esmonde Rd";
+    var latlong = guessAddress(userAddress);
+    var forecast = getWeatherData(latlong.lat, latlong.lng);
+    console.log(forecast);
+}
+
+// This function assumes that you are passing as its argument the returned value from address.js/getAddressLocation().
+function getWeatherData(lat, long) {
+    var apikey = "ab3b534277236c4d3ea8a475ecef0705";
+    var uri = "http://api.openweathermap.org/data/2.5/forecast";
+
+    var fulluri = uri + "?lat=" + lat + "&lon=" + long + "&mode=json&APPID=" + apikey;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", fulluri, true);
+    xhr.onload = function () {
+        var forecastdata = JSON.parse(xhr.responseText);
+        return forecastdata        
+    }
+    xhr.send(null);
 }
 
 function getTwoBlocks(){
