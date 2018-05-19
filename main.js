@@ -47,13 +47,18 @@ function getTwoBlocks(){
     xhr.open("GET", fulluri, true);
     xhr.onload = function () {
         var forecastdata = JSON.parse(xhr.responseText);
+
+        // Turns button to read the weather (eg. Rain/Cloudy/Sunny etc.)
         document.getElementById("blockOne").innerHTML = forecastdata.list[0].weather[0].main;
         document.getElementById("blockTwo").innerHTML = forecastdata.list[1].weather[0].main;
 
         document.getElementById("weatherTitleThreeHours").innerHTML ="Weather in the next 3 hours"
         document.getElementById("weatherTitleThreeToSix").innerHTML  ="Weather for 3 to 6 hours "
+
         blockOne = forecastdata.list[0].weather[0].main;
         blockTwo = forecastdata.list[1].weather[0].main;
+        changeButtonColor(blockOne, "blockOne");
+        changeButtonColor(blockTwo, "blockTwo");
 
         if (blockOne == "Rain" || blockTwo =="Rain"){
             document.getElementById("mainStatement").innerHTML = "Do not hang out washing"
@@ -65,5 +70,15 @@ function getTwoBlocks(){
         
     }
     xhr.send(null);
+}
+
+function changeButtonColor(forecast, buttonId) {
+    // Changes button color weather it's raining or not
+    if (forecast == "Rain") {
+        myButton = document.getElementById(buttonId).style
+        myButton.backgroundColor = 'blue';
+        myButton.borderColor = 'blue';
+        myButton.color = 'white';
+    }
 }
 
