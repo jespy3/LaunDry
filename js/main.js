@@ -3,9 +3,10 @@ function onLoad() {
     */
     getTwoBlocks();
     updateDate();
-    convert_UTCtoNZT();
+    rawDate = "2018-05-20 00:00:00";
+    dateComponents = extractRawDate(rawDate);
+    convert_UTCtoNZT(dateComponents);
 }
-
 
 function changeSpan(number){
     // alert("YAY");

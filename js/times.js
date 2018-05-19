@@ -9,9 +9,11 @@ function updateDate() {
     var prettyDate = day + '-' + month + '-' + year;
     document.getElementById("currentTime").innerHTML = prettyDate;
 }
-
-function convert_UTCtoNZT() {
+function getFirstDate() {
     // yyyy-mm-dd hh:mm:ss
+
+    // Not returning!!
+
 
     var aucklandid = "2193734";
     var apikey = "ab3b534277236c4d3ea8a475ecef0705";
@@ -24,7 +26,51 @@ function convert_UTCtoNZT() {
     xhr.onload = function () {
         var forecastdata = JSON.parse(xhr.responseText);
         rawTime=forecastdata.list[0].dt_txt;
-        alert(rawTime);
+        return rawTime;
     }
     xhr.send(null);
+}
+
+function extractRawDate(rawDate) {
+    // returns list of date components: [dd, mm, yyyy, hh, mm, ss]
+    alert(rawDate);
+
+    year = "";
+    month = "";
+    day = "";
+    hours = "";
+    mins = "";
+    secs = "";
+
+    for (var i = 0; i < rawDate.length; i++) {
+        if (i<4) {
+            year += rawDate[i]
+        } else if (i == 5 || i == 6) {
+            month += rawDate[i]
+        } else if (i == 8 || i == 9) {
+            day += rawDate[i]
+        } else if (i == 11 || i == 12) {
+            hours += rawDate[i]
+        } else if (i == 14 || i == 15) {
+            mins += rawDate[i]
+        } else if (i == 17 || i == 18) {
+            secs += rawDate[i]
+        }
+    }
+    return [day, month, year, hours, mins, secs];
+}
+
+function convert_UTCtoNZT(dateComponentsList) {
+    /* Adds 12 hours to date components list convert to UTC time 
+    
+    dateComponentsList[0] = yyyy
+    dateComponentsList[1] = mm
+    dateComponentsList[2] = dd
+    dateComponentsList[3] = hh
+    dateComponentsList[4] = mm
+    dateComponentsList[5] = ss
+    */
+
+    new_hh = parseInt(dateComponentsList[3]) + 12;
+    alert(new_hh);
 }
