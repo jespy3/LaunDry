@@ -1,24 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <Title>LaunDry (Title)</Title>
+        <Title>LaunDry</Title>
+
+        <!-- So 8-bit characters are rendered -->
+        <meta charset="UTF-8">
+
+        <!-- Booststrap access -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+        <!-- Main css file -->
+        <link rel="stylesheet" href="main.css">
+
+        <!-- link to javascript file -->
         <script src="main.js"></script>
     </head>
     <body>
-        <h1>LaunDry</h1>
-        
-        
-        <button onclick="getTwoBlocks()">Fetch</button>
-        
-        
-        <p id="yesOrNo"></p>
 
-        <p id="datetime"></p>
-        <p id="weather"></p>
-        <p id ="weatherTitleThreeHours"></p>
-        <p id="blockOne"></p>
-        <p id = "weatherTitleThreeToSix"></p>
-        <p id="blockTwo"></p>
+        <div id="main_container" class="container-fluid">
+            <div class="row">
+                            
+            
+            <div id="Next-six-hours" class="col-md-4 col-md-offset-4 col-centered">
+                <h1>LaunDry</h1>
+                <button onclick="getTwoBlocks()">Fetch</button>
+            
+            
+                <p id="yesOrNo"></p>
+                <p id="datetime"></p>
+                <p id="weather"></p>
+                <p id ="weatherTitleThreeHours"></p>
+                <p id="blockOne"></p>
+                <p id = "weatherTitleThreeToSix"></p>
+                <p id="blockTwo"></p>
+            </div>
+            </div>
+
+
+        </div>
+
 
         
     
