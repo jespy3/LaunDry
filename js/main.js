@@ -51,9 +51,11 @@ function getTwoBlocks(){
         changeButtonColor(blockTwo, "blockTwo");
 
         if (blockOne == "Rain" || blockTwo =="Rain"){
-            document.getElementById("mainStatement").innerHTML = "Do not hang out your washing"
+            vartest = findNextTime();
+            
         } else {
-            document.getElementById("mainStatement").innerHTML = "It will not rain for the next 6"
+            document.getElementById("mainStatement").innerHTML = "You can hang your washing out it isn't due to rain for the next 6 hours"
+
         }
 
 
@@ -84,6 +86,35 @@ function changeButtonColor(forecast, buttonId) {
         myButton.borderColor = 'yellow';
         myButton.color = 'white';
     }
+}
+
+function findNextTime(){
+    var aucklandid = "2193734";
+    var apikey = "ab3b534277236c4d3ea8a475ecef0705";
+    var uri = "http://api.openweathermap.org/data/2.5/forecast";
+
+    var fulluri = uri + "?id=" + aucklandid + "&mode=json&APPID=" + apikey
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", fulluri, true);
+    xhr.onload = function () {
+        var forecastdata = JSON.parse(xhr.responseText);
+        var i; // at the next 6 hours
+        var j; 
+        for (i = 2,  j =3; i < 24 ; i++, j++ ){
+            if (forecastdata.list[i].weather[0].main && forecastdata.list[j].weather[0].main != "Rain"){
+                document.getElementById("mainStatement").innerHTML = "Looking at the future weather you may be able to do your washing on " + forecastdata.list[i].dt_txt;
+
+            }else{
+                document.getElementById("mainStatement").innerHTML = "Sorry looking at the weather forecast there doesn't look like a gap in the rain for the next 3 days, check back later";
+ 
+            }
+
+
+        }
+        
+    }
+    xhr.send(null);
 }
 
 function changeImage(){
