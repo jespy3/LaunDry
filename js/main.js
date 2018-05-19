@@ -80,13 +80,16 @@ function processWeatherData(forecastData){
         vartest = findNextTime();
         
     } else {
-        document.getElementById("mainStatement").innerHTML = "You can hang your washing out it isn't due to rain for the next 6 hours"
+       canHangWashing("You can hang your washing out it isn't due to rain for the next 6 hours");
 
     }
 
 }
 
-function getTwoBlocks(){
+function canHangWashing(text){
+    document.getElementById("mainStatement").innerHTML = text
+}
+/* function getTwoBlocks(){
     var aucklandid = "2193734";
     var apikey = "ab3b534277236c4d3ea8a475ecef0705";
     var uri = "http://api.openweathermap.org/data/2.5/forecast";
@@ -122,7 +125,7 @@ function getTwoBlocks(){
 
     }
     xhr.send(null);
-}
+} */
 
 function changeButtonColor(forecast, buttonId) {
     // Changes button color weather it's raining or not
