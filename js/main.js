@@ -1,3 +1,8 @@
+// Executes when document ready
+$( 
+    getTwoBlocks()
+  );
+
 function changeSpan(number){
     // alert("YAY");
 
