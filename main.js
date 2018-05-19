@@ -1,3 +1,5 @@
 function changeSpan(number){
-    alert("YAY");
+    // alert("YAY");
+
+    document.getElementById("calculatedHours").innerHTML = number;
 }
