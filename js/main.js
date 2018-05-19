@@ -3,6 +3,7 @@ function onLoad() {
     */
     getTwoBlocks();
     updateDate();
+    convert_UTCtoNZT();
 }
 
 
