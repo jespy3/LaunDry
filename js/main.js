@@ -3,11 +3,10 @@ $( function(){
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
             // do this when browser location obtained (or refused)
-            console.log(position.coords.latitude, position.coords.longitude);
-            var weatherData = getWeatherData(position.coords.latitude, position.coords.longitude);
-            weatherData.then(function(){
-                console.log(weatherData)
-            });
+            console.log("brower location", position.coords.latitude, position.coords.longitude);
+            
+            // call into weather api and get weather
+            getWeatherData(position.coords.latitude, position.coords.longitude);
         });
     }
     getTwoBlocks();
@@ -45,7 +44,7 @@ function testIntegration() {
 }
 
 // This function assumes that you are passing as its argument the returned value from address.js/getAddressLocation().
-async function getWeatherData(lat, long) {
+function getWeatherData(lat, long) {
     var apikey = "ab3b534277236c4d3ea8a475ecef0705";
     var uri = "http://api.openweathermap.org/data/2.5/forecast";
 
