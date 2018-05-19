@@ -36,8 +36,8 @@ function test_guessAddress(usertext) {
 
 function test_lookupAddressLocation(myaddress) {
     
-    var prediction = guessAddress(myaddress);
-    var location = getAddressLocation(prediction);
+    var prediction = test_guessAddress(myaddress);
+    var location = test_getAddressLocation(prediction);
     return location;
 }
 
