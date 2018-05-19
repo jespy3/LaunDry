@@ -1,4 +1,4 @@
-function guessAddress() {
+function guessAddress(usertext) {
     var mapsapikey = "key=AIzaSyAXAnWVJ3Zjo0lwBw-6fKzvO-w7--W7_U4";
     var baseUri = "https://maps.googleapis.com/maps/api/place/";
     var autocomplete = "autocomplete/";
@@ -6,7 +6,7 @@ function guessAddress() {
     var components = "components=country:nz";
     var radius = "radius=200000";
     var types = "types=address";
-    var input = "input=14 westwell rd";
+    var input = "input=" + usertext;
     //console.log("Hi!");
     var autocompleteUri = baseUri + autocomplete + "json?" + mapsapikey + "&" + latlong + "&" + components
      + "&" + radius + "&" + types + "&" + input;
@@ -28,9 +28,11 @@ function guessAddress() {
     return lookupResults.predictions[0];
 }
 
-/* function lookupAddressLocation() {
-
-} */
+function lookupAddressLocation() {
+    var myaddress = "26 wicklow rd";
+    var prediction = guessAddress(myaddress);
+    var location = getAddressLocation(prediction);
+}
 
 function getAddressLocation(prediction) {
     var placeID = prediction.place_id;
