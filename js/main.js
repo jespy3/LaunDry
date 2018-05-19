@@ -1,7 +1,17 @@
-// Executes when document ready
-$( 
-    getTwoBlocks()
-  );
+// Load event handler: Executes when document ready
+$( function(){
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position){
+            // do this when browser location obtained (or refused)
+            console.log(position.coords.latitude, position.coords.longitude);
+            var weatherData = getWeatherData(position.coords.latitude, position.coords.longitude);
+            weatherData.then(function(){
+                console.log(weatherData)
+            });
+        });
+    }
+    getTwoBlocks();
+});
 
 function changeSpan(number){
     // alert("YAY");
@@ -35,19 +45,20 @@ function testIntegration() {
 }
 
 // This function assumes that you are passing as its argument the returned value from address.js/getAddressLocation().
-function getWeatherData(lat, long) {
+async function getWeatherData(lat, long) {
     var apikey = "ab3b534277236c4d3ea8a475ecef0705";
     var uri = "http://api.openweathermap.org/data/2.5/forecast";
 
     var fulluri = uri + "?lat=" + lat + "&lon=" + long + "&mode=json&APPID=" + apikey;
 
+    var forecastdata;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", fulluri, true);
     xhr.onload = function () {
-        var forecastdata = JSON.parse(xhr.responseText);
-        return forecastdata        
+        forecastdata = JSON.parse(xhr.responseText);      
     }
     xhr.send(null);
+    return forecastdata;
 }
 
 function getTwoBlocks(){
