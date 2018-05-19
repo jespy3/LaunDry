@@ -4,11 +4,11 @@ function guessAddress(usertext) {
     var autocomplete = "autocomplete/";
     var latlong = "location=-36.849998,174.783325";
     var components = "components=country:nz";
-    var radius = "radius=200000"; // units: meters
+    var radius = "radius=200000"; // 200,000 metres / 200 kilometres
     var types = "types=address";
     //var input = "input=" + usertext;
 
-    var input = "input=14 westwell rd";
+    var input = "input=12 Esmonde Rd";
 
     //console.log("Hi!");
     var autocompleteUri = baseUri + autocomplete + "json?" + mapsapikey + "&" + latlong + "&" + components
