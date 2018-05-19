@@ -56,9 +56,9 @@ function getTwoBlocks(){
         blockTwo = forecastdata.list[1].weather[0].main;
 
         if (blockOne == "Rain" || blockTwo =="Rain"){
-            document.getElementById("yesOrNo").innerHTML = "Do not hang out washing"
+            document.getElementById("mainStatement").innerHTML = "Do not hang out washing"
         } else {
-            document.getElementById("yesOrNo").innerHTML = "It will not rain for the next 6"
+            document.getElementById("mainStatement").innerHTML = "It will not rain for the next 6"
         }
 
 
