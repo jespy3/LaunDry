@@ -4,7 +4,7 @@ function guessAddress(usertext) {
     var autocomplete = "autocomplete/";
     var latlong = "location=-36.849998,174.783325";
     var components = "components=country:nz";
-    var radius = "radius=200000";
+    var radius = "radius=200000"; // units: meters
     var types = "types=address";
     //var input = "input=" + usertext;
 
