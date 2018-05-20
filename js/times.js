@@ -91,7 +91,6 @@ function updateDate() {
     var year = rawDate.getFullYear();  
     
     var prettyDate = day + '-' + month + '-' + year;
-    document.getElementById("currentTime").innerHTML = prettyDate;
 }
 
 

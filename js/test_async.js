@@ -29,10 +29,16 @@ function test_guessAddress(usertext) {
 
     //console.log(JSON.stringify(lookupResults));
 
-    var lookupresults = fetch(autocompleteUri).then(resolve).then(jsonify)
+    /* var lookupresults = fetch(autocompleteUri).then(resolve).then(jsonify)
         .catch(e => console.log('Fetch error:', err));
     console.log(lookupresults);
-    return lookupresults.predictions[0];    
+    return lookupresults.predictions[0];  */   
+    fetch(autocompleteUri).then(resolve).then(jsonify).then(resp => console.log(resp))
+        .then(resp => {test_getAddressLocation(resp.predictions[0])})
+        .catch(e => console.log('Fetch error:', err));
+    return b;
+    //console.log(lookupresults);
+    //return lookupresults.predictions[0]; 
 }
 
 function test_lookupAddressLocation(myaddress) {
@@ -61,12 +67,13 @@ function test_getWeatherData(lat, long) {
     }
     xhr.send(null); */
 
-    var weatherForcecast = fetch(fulluri).then(resolve).then(jsonify)
+    var weatherForcecast = fetch(fulluri).then(resolve).then(jsonify).then(logger)
+        .then(resp => {return resp})
         .catch(e => console.log('Fetch error:', err));
 
-    console.log(weatherForcecast);
+    //console.log(weatherForcecast);
 
-    return weatherForcecast;
+    //return weatherForcecast;
 }
 
 function test_getAddressLocation(prediction) {
@@ -93,10 +100,13 @@ function test_getAddressLocation(prediction) {
     xhr.send(null); */
 
     var lookupResults = fetch(detailsUri).then(resolve).then(jsonify)
+        .then(resp => {return resp.result.geometry.location}).then(logger)
+        .then(resp => {return resp})
         .catch(e => console.log('Fetch error:', err));
-    var locat = lookupResults.result.geometry.location;
-    console.log(locat)
-    return locat;
+    //var locat = lookupResults.result.geometry.location;
+    //console.log(locat)
+    //return locat;
+    return lookupResults;
 }
 
 function test_integration() {
@@ -113,4 +123,15 @@ function resolve(response) {
 function jsonify(response) {
     var jason = response.json();
     return JSON.parse(jason);
+}
+
+function lookupUserAddress() {
+    var address = document.getElementById('addressBox').value;
+    var result = test_lookupAddressLocation(address);
+    console.log(result);
+}
+
+function logger(response) {
+    console.log(response);
+    return response;
 }
