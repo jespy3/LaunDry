@@ -3,8 +3,7 @@ $( function(){
     updateDate();
     rawDate = "2018-05-20 00:00:00";
     dateComponents = extractRawDate(rawDate);
-    alert(dateComponents);
-
+    
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
             // do this when browser location obtained (or refused)
