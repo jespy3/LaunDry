@@ -1,4 +1,4 @@
-function test_guessAddress(usertext) {
+async function test_guessAddress(usertext) {
     var mapsapikey = "key=AIzaSyAXAnWVJ3Zjo0lwBw-6fKzvO-w7--W7_U4";
     var baseUri = "https://maps.googleapis.com/maps/api/place/";
     var autocomplete = "autocomplete/";
@@ -33,27 +33,31 @@ function test_guessAddress(usertext) {
         .catch(e => console.log('Fetch error:', err));
     console.log(lookupresults);
     return lookupresults.predictions[0];  */   
-    fetch(autocompleteUri).then(resolve).then(jsonify).then(resp => console.log(resp))
-        .then(resp => {test_getAddressLocation(resp.predictions[0])})
+    var b = await fetch(autocompleteUri).then(resolve).then(jsonify)
+        .then(resp => {return resp.predictions[0]});
+    /* var b = await fetch(autocompleteUri).then(resolve).then(r => {return r.json()})
         .catch(e => console.log('Fetch error:', err));
+        console.log(b); */
+
     return b;
     //console.log(lookupresults);
     //return lookupresults.predictions[0]; 
 }
 
-function test_lookupAddressLocation(myaddress) {
+async function test_lookupAddressLocation(myaddress) {
     
-    var prediction = test_guessAddress(myaddress);
-    var location = test_getAddressLocation(prediction);
+    var prediction = await test_guessAddress(myaddress);
+    var location = await test_getAddressLocation(prediction);
+    console.log(location);
     return location;
 }
 
-function test_getWeatherForecastFromAddress(userAddress) {
-    var addressLocation = test_lookupAddressLocation(userAddress);
+async function test_getWeatherForecastFromAddress(userAddress) {
+    var addressLocation = await test_lookupAddressLocation(userAddress);
     var weatherForcecast = test_getWeatherData(addressLocation.lat, addressLocation.lng);
 }
 
-function test_getWeatherData(lat, long) {
+async function test_getWeatherData(lat, long) {
     var apikey = "ab3b534277236c4d3ea8a475ecef0705";
     var uri = "http://api.openweathermap.org/data/2.5/forecast";
 
@@ -67,16 +71,15 @@ function test_getWeatherData(lat, long) {
     }
     xhr.send(null); */
 
-    var weatherForcecast = fetch(fulluri).then(resolve).then(jsonify).then(logger)
-        .then(resp => {return resp})
-        .catch(e => console.log('Fetch error:', err));
+    var weatherForcecast = await fetch(fulluri).then(resolve).then(jsonify).then(logger)
+        .then(resp => {return resp});
 
     //console.log(weatherForcecast);
 
     //return weatherForcecast;
 }
 
-function test_getAddressLocation(prediction) {
+async function test_getAddressLocation(prediction) {
     var placeID = prediction.place_id;
     var mapsapikey = "key=AIzaSyAXAnWVJ3Zjo0lwBw-6fKzvO-w7--W7_U4";
     var baseUri = "https://maps.googleapis.com/maps/api/place/";
@@ -99,10 +102,9 @@ function test_getAddressLocation(prediction) {
     }
     xhr.send(null); */
 
-    var lookupResults = fetch(detailsUri).then(resolve).then(jsonify)
-        .then(resp => {return resp.result.geometry.location}).then(logger)
-        .then(resp => {return resp})
-        .catch(e => console.log('Fetch error:', err));
+    var lookupResults = await fetch(detailsUri).then(resolve).then(jsonify)
+        .then(resp => {return resp.result.geometry.location});
+        console.log(lookupResults);
     //var locat = lookupResults.result.geometry.location;
     //console.log(locat)
     //return locat;
@@ -115,14 +117,16 @@ function test_integration() {
     console.log(result);
 }
 
-function resolve(response) {
+function resolve(res) {
     if(!res.ok) {throw new Error('Whoops!');}
     return res;
 }
 
-function jsonify(response) {
-    var jason = response.json();
-    return JSON.parse(jason);
+async function jsonify(response) {
+    var jason = await response.json();
+    console.log(jason);
+    return jason;
+    //return response.json();
 }
 
 function lookupUserAddress() {
