@@ -32,7 +32,7 @@ function convert_UTCtoNZT(unixTime=Date.now()) {
     xhr.onload = function () {
         var unixNZT = JSON.parse(xhr.responseText);
         var formattedTime = convertUnixToTimestamp(unixNZT["toTimestamp"]);
-        alternativeTimeFound("But you may be able to do your washing on " + formattedTime);
+        alternativeTimeFound("But you may be able to do your washing at " + formattedTime);
     }
     xhr.send(null);
 }
@@ -45,6 +45,7 @@ function convertUnixToTimestamp(unixTime) {
 
     // multiplied by 1000 so that the argument is in milliseconds, not seconds.
     // unixTime = 1526827060;
+    var today = Date.now().toString().slice(0,10);
     
     var date = new Date(unixTime*1000);
 
@@ -70,13 +71,23 @@ function convertUnixToTimestamp(unixTime) {
     var year = date.getFullYear(); 
 
     // Will display time in 10:30:23 format
-    var formattedTime = hours + ':' 
-                        + minutes.substr(-2) + ':' 
-                        + seconds.substr(-2) 
-                        + ' on ' + day + ' ' 
-                        + dateNum + '/' 
-                        + month + '/' 
-                        + year;
+    if (hours > 12) {
+        hours = (hours - 12).toString() + 'pm';
+    } else {
+        hours = hours.toString() + 'am';
+    }
+
+    var formattedTime = hours + ' on ' 
+                        + day + ' '
+                        + dateNum + '/'
+                        + month;
+                        // + ':' 
+                        // + minutes.substr(-2) + ':' 
+                        // + seconds.substr(-2) 
+                        // + ' on ' + day + ' ' 
+                        // + dateNum + '/' 
+                        // + month + '/' 
+                        // + year;
 
     return formattedTime;
 }

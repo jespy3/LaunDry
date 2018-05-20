@@ -83,7 +83,7 @@ function processWeatherData(forecastData){
     blockTwo = forecastData.list[1].weather[0].main;
 
     // test only!!
-    blockOne = "Rain";
+    // blockOne = "Rain";
 
     changeButtonColor(blockOne, "blockOne");
     changeButtonColor(blockTwo, "blockTwo");
