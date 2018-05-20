@@ -77,11 +77,14 @@ function processWeatherData(forecastData){
     document.getElementById("blockOne").innerHTML = forecastData.list[0].weather[0].main;
     document.getElementById("blockTwo").innerHTML = forecastData.list[1].weather[0].main;
 
+
     document.getElementById("weatherTitleThreeHours").innerHTML ="Weather in the next 3 hours"
     document.getElementById("weatherTitleThreeToSix").innerHTML  ="Weather for 3 to 6 hours "
 
     blockOne = forecastData.list[0].weather[0].main;
     blockTwo = forecastData.list[1].weather[0].main;
+
+    blockOne = "Rain";
 
     changeButtonColor(blockOne, "blockOne");
     changeButtonColor(blockTwo, "blockTwo");
@@ -196,7 +199,7 @@ function findNextTime(){
         var j; 
         for (i = 2,  j =3; i < 24 ; i++, j++ ){
             if (forecastdata.list[i].weather[0].main && forecastdata.list[j].weather[0].main != "Rain"){
-                alternativeTimeFound("You may be able to do your washing on " + forecastdata.list[i].dt_txt);
+                alternativeTimeFound("But you may be able to do your washing on " + forecastdata.list[i].dt_txt);
                 break;
             }else{
                 noTimeFound("You won't be able to do it for 3 days either.");
