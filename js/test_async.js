@@ -29,8 +29,7 @@ function test_guessAddress(usertext) {
 
     //console.log(JSON.stringify(lookupResults));
 
-    var lookupresults = JSON.parse(fetch(autocompleteUri).then((resp) => 
-        {return Promise.resolve(resp)}).then(resp => resp.json()));
+    var lookupresults = JSON.parse(fetch(autocompleteUri).then(resolve).then(jsonify));
     console.log(lookupresults);
     return lookupresults.predictions[0];    
 }
@@ -62,7 +61,7 @@ function test_getWeatherData(lat, long) {
     xhr.send(null); */
 
     var weatherForcecast = JSON.parse(
-        fetch(fulluri).then((resp) => {return Promise.resolve(resp)}).then(resp => resp.json())
+        fetch(fulluri).then(resolve).then(jsonify)
     );
 
     console.log(weatherForcecast);
@@ -93,7 +92,7 @@ function test_getAddressLocation(prediction) {
     }
     xhr.send(null); */
 
-    var lookupResults = JSON.parse(fetch(detailsUri).then((resp) => {return Promise.resolve(resp)}).then(resp => resp.json()));
+    var lookupResults = JSON.parse(fetch(detailsUri).then(resolve).then(jsonify));
     var locat = lookupResults.result.geometry.location;
     console.log(locat)
     return locat;
@@ -103,4 +102,13 @@ function test_integration() {
     var address = "6 Egremont St";
     var result = test_getWeatherForecastFromAddress(address);
     console.log(result);
+}
+
+function resolve(response) {
+    if(!res.ok) {throw new Error('Whoops!');}
+    return res;
+}
+
+function jsonify(response) {
+    return response.json();
 }
