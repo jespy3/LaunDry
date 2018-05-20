@@ -1,3 +1,27 @@
+// Constructing base HTTPRequest linked to uri
+var uri = "http://api.timezonedb.com/v2/convert-time-zone";
+var key = "WBNIFK1HLXYA";
+var format = "=json";
+// var callback = "";
+// var fields = "";
+var fromCity = "";
+var toCity = "";
+var unixTime = "";
+
+var prefix = uri + '?key=' + key
+                 + '&format=' + format
+                 + '&from=' + fromCity
+                 + '&to=' + toCity
+                 + 'time=' + unixTime;
+
+function convert_UTCtoNZT() {
+    /* Converts unix time from 'fromCity' to
+    */
+
+}
+
+
+
 function updateDate() {
     /* Changes the element displaying the date to most recent.
     */
@@ -9,6 +33,9 @@ function updateDate() {
     var prettyDate = day + '-' + month + '-' + year;
     document.getElementById("currentTime").innerHTML = prettyDate;
 }
+
+
+
 function getFirstDate() {
     // yyyy-mm-dd hh:mm:ss
 
@@ -33,7 +60,7 @@ function getFirstDate() {
 
 function extractRawDate(rawDate) {
     // returns list of date components: [dd, mm, yyyy, hh, mm, ss]
-    
+
     year = "";
     month = "";
     day = "";
