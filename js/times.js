@@ -31,9 +31,7 @@ function convert_UTCtoNZT(unixTime=Date.now()) {
     xhr.open("GET", fulluri, true);
     xhr.onload = function () {
         var unixNZT = JSON.parse(xhr.responseText);
-        alert(unixNZT["toTimestamp"]);
         var formattedTime = convertUnixToTimestamp(unixNZT["toTimestamp"]);
-        
     }
     xhr.send(null);
 }
@@ -45,7 +43,7 @@ function convertUnixToTimestamp(unixTime) {
     */
 
     // multiplied by 1000 so that the argument is in milliseconds, not seconds.
-    unixTime = 1526827060;
+    // unixTime = 1526827060;
     
     var date = new Date(unixTime*1000);
 
