@@ -60,6 +60,7 @@ function getWeatherData(lat, long) {
     xhr.open("GET", fulluri, true);
     xhr.onload = function () {
         forecastdata = JSON.parse(xhr.responseText);      
+        processWeatherData(forecastdata);
     }
     xhr.send(null);
 }
@@ -91,7 +92,9 @@ function processWeatherData(forecastData){
 }
 
 function canHangWashing(text){
-    document.getElementById("mainStatement").innerHTML = text
+    document.getElementById("mainStatement").innerHTML = text;
+    $("#big-text").text("YES");
+    console.log("YES clause triggered");
 }
 /* function getTwoBlocks(){
     var aucklandid = "2193734";
