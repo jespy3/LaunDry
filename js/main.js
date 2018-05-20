@@ -7,8 +7,9 @@ $( function(){
     updateDate();
     rawDate = "2018-05-20 00:00:00";
     dateComponents = extractRawDate(rawDate);
-
+    convert_UTCtoNZT();
     
+
     
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
@@ -81,6 +82,9 @@ function processWeatherData(forecastData){
     blockOne = forecastData.list[0].weather[0].main;
     blockTwo = forecastData.list[1].weather[0].main;
 
+    // test only!!
+    blockOne = "Rain";
+
     changeButtonColor(blockOne, "blockOne");
     changeButtonColor(blockTwo, "blockTwo");
 
@@ -150,7 +154,7 @@ function findNextTime(forecastData){
     var j; 
     for (i = 2,  j =3; i < 24 ; i++, j++ ){
         if (forecastData.list[i].weather[0].main && forecastData.list[j].weather[0].main != "Rain"){
-            alternativeTimeFound("But you may be able to do your washing on " + forecastData.list[i].dt_txt);
+            alternativeTimeFound("But you may be able to do your washing on " + convert_UTCtoNZT(forecastData.list[i].dt));
             break;
         }else{
             noTimeFound("You won't be able to do it for 3 days either.");
