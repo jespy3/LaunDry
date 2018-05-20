@@ -29,10 +29,15 @@ function test_guessAddress(usertext) {
 
     //console.log(JSON.stringify(lookupResults));
 
-    var lookupresults = fetch(autocompleteUri).then(resolve).then(jsonify)
+    /* var lookupresults = fetch(autocompleteUri).then(resolve).then(jsonify)
         .catch(e => console.log('Fetch error:', err));
     console.log(lookupresults);
-    return lookupresults.predictions[0];    
+    return lookupresults.predictions[0];  */   
+    fetch(autocompleteUri).then(resolve).then(jsonify).then(resp => console.log(resp))
+        .then(resp => {return resp.predictions[0]})
+        .catch(e => console.log('Fetch error:', err));
+    //console.log(lookupresults);
+    //return lookupresults.predictions[0]; 
 }
 
 function test_lookupAddressLocation(myaddress) {
@@ -61,12 +66,13 @@ function test_getWeatherData(lat, long) {
     }
     xhr.send(null); */
 
-    var weatherForcecast = fetch(fulluri).then(resolve).then(jsonify)
+    var weatherForcecast = fetch(fulluri).then(resolve).then(jsonify).then(resp => console.log(resp))
+        .then(resp => {return resp})
         .catch(e => console.log('Fetch error:', err));
 
-    console.log(weatherForcecast);
+    //console.log(weatherForcecast);
 
-    return weatherForcecast;
+    //return weatherForcecast;
 }
 
 function test_getAddressLocation(prediction) {
@@ -93,10 +99,12 @@ function test_getAddressLocation(prediction) {
     xhr.send(null); */
 
     var lookupResults = fetch(detailsUri).then(resolve).then(jsonify)
+        .then(resp => resp.result.geometry.location).then(resp => console.log(resp))
+        .then(resp => {return resp})
         .catch(e => console.log('Fetch error:', err));
-    var locat = lookupResults.result.geometry.location;
-    console.log(locat)
-    return locat;
+    //var locat = lookupResults.result.geometry.location;
+    //console.log(locat)
+    //return locat;
 }
 
 function test_integration() {
