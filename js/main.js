@@ -1,8 +1,14 @@
 // Load event handler: Executes when document ready
 $( function(){
+    // Hide image
+    $("#imageRow").hide();
+
+
     updateDate();
     rawDate = "2018-05-20 00:00:00";
     dateComponents = extractRawDate(rawDate);
+
+    
     
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
@@ -76,10 +82,12 @@ function processWeatherData(forecastData){
 
     blockOne = forecastData.list[0].weather[0].main;
     blockTwo = forecastData.list[1].weather[0].main;
+
     changeButtonColor(blockOne, "blockOne");
     changeButtonColor(blockTwo, "blockTwo");
 
     changeImage(blockOne, blockTwo, "mainImage");
+    $("#imageRow").show();
 
     if (blockOne == "Rain" || blockTwo =="Rain"){
         vartest = findNextTime(forecastData);
@@ -95,6 +103,18 @@ function canHangWashing(text){
     $("#big-text").text("YES");
     $("#explain-text").text(text);
     console.log("YES clause triggered");
+}
+
+function alternativeTimeFound(text){
+    $("#big-text").text("NO");
+    $("#explain-text").text(text);
+    console.log("Alternative clause triggered");
+}
+
+function noTimeFound(text){
+    $("#big-text").text("NO");
+    $("#explain-text").text(text);
+    console.log("No alternative clause triggered");
 }
 /* function getTwoBlocks(){
     var aucklandid = "2193734";
@@ -141,6 +161,7 @@ function changeButtonColor(forecast, buttonId) {
         myButton.backgroundColor = 'blue';
         myButton.borderColor = 'blue';
         myButton.color = 'white';
+        $("#" + buttonId).text = "Rain";
     }
     // Changes button color weather 
     if (forecast == "Clouds") {
@@ -148,6 +169,7 @@ function changeButtonColor(forecast, buttonId) {
         myButton.backgroundColor = 'grey';
         myButton.borderColor = 'grey';
         myButton.color = 'white';
+        $("#" + buttonId).text = "Cloudy";
     }
 
         if (forecast == "Sun") {
@@ -155,6 +177,7 @@ function changeButtonColor(forecast, buttonId) {
         myButton.backgroundColor = 'yellow';
         myButton.borderColor = 'yellow';
         myButton.color = 'white';
+        $("#" + buttonId).text = "Sunny";
     }
 }
 
@@ -173,10 +196,10 @@ function findNextTime(){
         var j; 
         for (i = 2,  j =3; i < 24 ; i++, j++ ){
             if (forecastdata.list[i].weather[0].main && forecastdata.list[j].weather[0].main != "Rain"){
-                document.getElementById("mainStatement").innerHTML = "Looking at the future weather you may be able to do your washing on " + forecastdata.list[i].dt_txt;
-
+                alternativeTimeFound("You may be able to do your washing on " + forecastdata.list[i].dt_txt);
+                break;
             }else{
-                document.getElementById("mainStatement").innerHTML = "Sorry looking at the weather forecast there doesn't look like a gap in the rain for the next 3 days, check back later";
+                noTimeFound("You won't be able to do it for 3 days either.");
             }
         }   
     }
@@ -185,7 +208,7 @@ function findNextTime(){
 
 //changes the laundry image if it is raining or not
 function changeImage(blockOne, blockTwo, imageId){
-    if(blockOne =="rain" || blockTwo == "Rain"){
+    if(blockOne =="Rain" || blockTwo == "Rain"){
         document.getElementById(imageId).src = "images/rainy2.gif";
     }else{
         document.getElementById(imageId).src = "images/ok.gif"

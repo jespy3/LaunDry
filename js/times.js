@@ -7,7 +7,6 @@ function updateDate() {
     var year = rawDate.getFullYear();  
     
     var prettyDate = day + '-' + month + '-' + year;
-    document.getElementById("currentTime").innerHTML = prettyDate;
 }
 function getFirstDate() {
     // yyyy-mm-dd hh:mm:ss
