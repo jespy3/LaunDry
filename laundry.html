@@ -13,7 +13,7 @@
         <!-- Main css file -->
         <link rel="stylesheet" href="css/main.css">
     </head>
-    <body onload="onLoad()">
+    <body>
         <!-- Jumbotron Header -->
         <div class="jumbotron text-center">
             <h1>Should I do laundry today?</h1>
@@ -25,7 +25,13 @@
             <!-- big text -->
             <div class="row">
                 <div class="col-12">
-                    <h1 id="big-text" style="font-size:120pt">TEST</h1>
+                    <h1 id="big-text" style="font-size:120pt"></h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h2 id="explain-text"></h2>
+                    <p></p>
                 </div>
             </div>
 
@@ -33,7 +39,7 @@
             <div id="central-card" class="row">
                 <div class="col-12">
                     <div class="card mx-auto" style="width: 18rem;">
-                        <img class="card-img-top" src="images/no.gif" alt="Card image cap">
+                        <img class="card-img-top" id="mainImage" src="images/no.gif" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title"></h5>
                             <h6 id="mainStatement" ></h6>

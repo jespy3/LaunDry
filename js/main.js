@@ -79,21 +79,22 @@ function processWeatherData(forecastData){
     changeButtonColor(blockOne, "blockOne");
     changeButtonColor(blockTwo, "blockTwo");
 
-    changeImage(blockOne, blockTwo, "mainImage");
+    // changeImage(blockOne, blockTwo, "mainImage");
 
     if (blockOne == "Rain" || blockTwo =="Rain"){
         vartest = findNextTime();
         
     } else {
-       canHangWashing("You can hang your washing out it isn't due to rain for the next 6 hours");
+       canHangWashing("You can hang your washing out, it isn't due to rain for the next 6 hours");
 
     }
 
 }
 
 function canHangWashing(text){
-    document.getElementById("mainStatement").innerHTML = text;
+    //document.getElementById("mainStatement").innerHTML = text;
     $("#big-text").text("YES");
+    $("#explain-text").text(text);
     console.log("YES clause triggered");
 }
 /* function getTwoBlocks(){
