@@ -33,8 +33,7 @@ function getFirstDate() {
 
 function extractRawDate(rawDate) {
     // returns list of date components: [dd, mm, yyyy, hh, mm, ss]
-    alert(rawDate);
-
+    
     year = "";
     month = "";
     day = "";
@@ -60,17 +59,3 @@ function extractRawDate(rawDate) {
     return [day, month, year, hours, mins, secs];
 }
 
-function convert_UTCtoNZT(dateComponentsList) {
-    /* Adds 12 hours to date components list convert to UTC time 
-    
-    dateComponentsList[0] = yyyy
-    dateComponentsList[1] = mm
-    dateComponentsList[2] = dd
-    dateComponentsList[3] = hh
-    dateComponentsList[4] = mm
-    dateComponentsList[5] = ss
-    */
-
-    new_hh = parseInt(dateComponentsList[3]) + 12;
-    alert(new_hh);
-}

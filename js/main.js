@@ -1,12 +1,22 @@
-function onLoad() {
-    /* The collection of functions that are called upon loading the application.
-    */
-    getTwoBlocks();
+// Load event handler: Executes when document ready
+$( function(){
     updateDate();
     rawDate = "2018-05-20 00:00:00";
     dateComponents = extractRawDate(rawDate);
-    convert_UTCtoNZT(dateComponents);
-}
+    alert(dateComponents);
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position){
+            // do this when browser location obtained (or refused)
+            console.log("brower location", position.coords.latitude, position.coords.longitude);
+            
+            // call into weather api and get weather
+            getWeatherData(position.coords.latitude, position.coords.longitude);
+            
+        });
+    }
+    //getTwoBlocks();
+});
 
 function changeSpan(number){
     // alert("YAY");
@@ -46,16 +56,44 @@ function getWeatherData(lat, long) {
 
     var fulluri = uri + "?lat=" + lat + "&lon=" + long + "&mode=json&APPID=" + apikey;
 
+    var forecastdata;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", fulluri, true);
     xhr.onload = function () {
-        var forecastdata = JSON.parse(xhr.responseText);
-        return forecastdata        
+        forecastdata = JSON.parse(xhr.responseText); 
+        processWeatherData(forecastdata);
     }
     xhr.send(null);
 }
 
-function getTwoBlocks(){
+// Processes the forecastData and changes DOM elements
+function processWeatherData(forecastData){
+    // Turns button to read the weather (eg. Rain/Cloudy/Sunny etc.)
+    document.getElementById("blockOne").innerHTML = forecastData.list[0].weather[0].main;
+    document.getElementById("blockTwo").innerHTML = forecastData.list[1].weather[0].main;
+
+    document.getElementById("weatherTitleThreeHours").innerHTML ="Weather in the next 3 hours"
+    document.getElementById("weatherTitleThreeToSix").innerHTML  ="Weather for 3 to 6 hours "
+
+    blockOne = forecastData.list[0].weather[0].main;
+    blockTwo = forecastData.list[1].weather[0].main;
+    changeButtonColor(blockOne, "blockOne");
+    changeButtonColor(blockTwo, "blockTwo");
+
+    if (blockOne == "Rain" || blockTwo =="Rain"){
+        vartest = findNextTime();
+        
+    } else {
+       canHangWashing("You can hang your washing out it isn't due to rain for the next 6 hours");
+
+    }
+
+}
+
+function canHangWashing(text){
+    document.getElementById("mainStatement").innerHTML = text
+}
+/* function getTwoBlocks(){
     var aucklandid = "2193734";
     var apikey = "ab3b534277236c4d3ea8a475ecef0705";
     var uri = "http://api.openweathermap.org/data/2.5/forecast";
@@ -85,13 +123,13 @@ function getTwoBlocks(){
         } else {
             document.getElementById("mainStatement").innerHTML = "You can hang your washing out it isn't due to rain for the next 6 hours"
 
-        }
-
-
+        }       
         
+        
+
     }
     xhr.send(null);
-}
+} */
 
 function changeButtonColor(forecast, buttonId) {
     // Changes button color weather it's raining or not
@@ -136,7 +174,7 @@ function findNextTime(){
 
             }else{
                 document.getElementById("mainStatement").innerHTML = "Sorry looking at the weather forecast there doesn't look like a gap in the rain for the next 3 days, check back later";
- 
+
             }
 
 
