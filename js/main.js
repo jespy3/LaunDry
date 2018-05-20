@@ -180,3 +180,11 @@ function findNextTime(){
     xhr.send(null);
 }
 
+function changeImage(blockOne, blockTwo, imageId){
+    if(blockOne || blockTwo == "Rain"){
+        document.getElementById(mainImage).src = "images/no.gif";
+    }else{
+        document.getElementById(mainImage).src = "images/yes.gif"
+    }
+
+}
