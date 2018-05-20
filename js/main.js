@@ -154,13 +154,28 @@ function findNextTime(forecastData){
     var j; 
     for (i = 2,  j =3; i < 24 ; i++, j++ ){
         if (forecastData.list[i].weather[0].main && forecastData.list[j].weather[0].main != "Rain"){
-            alternativeTimeFound("But you may be able to do your washing on " + convert_UTCtoNZT(forecastData.list[i].dt));
+            convert_UTCtoNZT(forecastData.list[i].dt);
             break;
         }else{
             noTimeFound("You won't be able to do it for 3 days either.");
         }
     }   
 }
+
+
+/* function findNextTime(forecastData){
+    
+    var i; // at the next 6 hours
+    var j; 
+    for (i = 2,  j =3; i < 24 ; i++, j++ ){
+        if (forecastData.list[i].weather[0].main && forecastData.list[j].weather[0].main != "Rain"){
+            alternativeTimeFound("But you may be able to do your washing on " + convert_UTCtoNZT(forecastData.list[i].dt));
+            break;
+        }else{
+            noTimeFound("You won't be able to do it for 3 days either.");
+        }
+    }   
+} */
 
 //changes the laundry image if it is raining or not
 function changeImage(blockOne, blockTwo, imageId){

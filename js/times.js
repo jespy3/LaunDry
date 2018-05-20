@@ -32,6 +32,7 @@ function convert_UTCtoNZT(unixTime=Date.now()) {
     xhr.onload = function () {
         var unixNZT = JSON.parse(xhr.responseText);
         var formattedTime = convertUnixToTimestamp(unixNZT["toTimestamp"]);
+        alternativeTimeFound("But you may be able to do your washing on " + formattedTime);
     }
     xhr.send(null);
 }
