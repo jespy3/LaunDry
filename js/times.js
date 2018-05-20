@@ -1,26 +1,86 @@
 // Constructing base HTTPRequest linked to uri
 var uri = "http://api.timezonedb.com/v2/convert-time-zone";
 var key = "WBNIFK1HLXYA";
-var format = "=json";
+var format = "json";
+//var fieldsToReturn = "toTimestamp";
 // var callback = "";
 // var fields = "";
-var fromCity = "";
-var toCity = "";
-var unixTime = "";
 
 var prefix = uri + '?key=' + key
-                 + '&format=' + format
-                 + '&from=' + fromCity
-                 + '&to=' + toCity
-                 + 'time=' + unixTime;
+                 + '&format=' + format;
+                //  + '&fields=' + fieldsToReturn;
 
-function convert_UTCtoNZT() {
-    /* Converts unix time from 'fromCity' to
+function convert_UTCtoNZT(unixTime=Date.now()) {
+    /* Converts some unix time from 'fromCity' to unix time of 'toCity'.
+
+    Default value for 'unixTime' is current unix time.
     */
+    
+    // not including millisecond count from Date.now()
+    unixTime = unixTime.toString().slice(0,10);
 
+    var fromCity = "Africa/El_Aaiun";
+    var toCity = "Pacific/Auckland";
+
+    var fulluri = prefix 
+                  + '&from=' + fromCity
+                  + '&to=' + toCity
+                  + '&time=' + unixTime;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", fulluri, true);
+    xhr.onload = function () {
+        var unixNZT = JSON.parse(xhr.responseText);
+        alert(unixNZT["toTimestamp"]);
+        var formattedTime = convertUnixToTimestamp(unixNZT["toTimestamp"]);
+        
+    }
+    xhr.send(null);
 }
 
+function convertUnixToTimestamp(unixTime) {
+    /* Converts unix time to a timestamp date in hh:mm:ss dd:mm:yyyy format
 
+    SOURCE: https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript
+    */
+
+    // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+    unixTime = 1526827060;
+    
+    var date = new Date(unixTime*1000);
+
+    // Hours part from the timestamp
+    var hours = (date.getHours() + 12) % 24;
+
+    // Minutes part from the timestamp
+    var minutes = "0" + date.getMinutes();
+
+    // Seconds part from the timestamp
+    var seconds = "0" + date.getSeconds();
+
+    // Day part from the timestamp
+    var day = date.toString().slice(0,3);
+
+    // DateNum part from the timestamp
+    var dateNum = date.getDate();
+
+    // Month part from the timestamp
+    var month = date.getMonth()+1;
+
+    // Year party from the timestramp
+    var year = date.getFullYear(); 
+
+    // Will display time in 10:30:23 format
+    var formattedTime = hours + ':' 
+                        + minutes.substr(-2) + ':' 
+                        + seconds.substr(-2) 
+                        + ' on ' + day + ' ' 
+                        + dateNum + '/' 
+                        + month + '/' 
+                        + year;
+
+    return formattedTime;
+}
 
 function updateDate() {
     /* Changes the element displaying the date to most recent.

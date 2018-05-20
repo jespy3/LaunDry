@@ -3,6 +3,9 @@ $( function(){
     updateDate();
     rawDate = "2018-05-20 00:00:00";
     dateComponents = extractRawDate(rawDate);
+    convert_UTCtoNZT();
+    
+
     
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
