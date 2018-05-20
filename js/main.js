@@ -86,7 +86,9 @@ function processWeatherData(forecastData){
 }
 
 function canHangWashing(text){
-    document.getElementById("mainStatement").innerHTML = text
+    document.getElementById("mainStatement").innerHTML = text;
+    $("#big-text").text("YES");
+    console.log("YES clause triggered");
 }
 /* function getTwoBlocks(){
     var aucklandid = "2193734";
