@@ -1,5 +1,9 @@
 // Load event handler: Executes when document ready
 $( function(){
+    updateDate();
+    rawDate = "2018-05-20 00:00:00";
+    dateComponents = extractRawDate(rawDate);
+    
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
             // do this when browser location obtained (or refused)
@@ -55,7 +59,7 @@ function getWeatherData(lat, long) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", fulluri, true);
     xhr.onload = function () {
-        forecastdata = JSON.parse(xhr.responseText); 
+        forecastdata = JSON.parse(xhr.responseText);      
         processWeatherData(forecastdata);
     }
     xhr.send(null);
@@ -74,6 +78,8 @@ function processWeatherData(forecastData){
     blockTwo = forecastData.list[1].weather[0].main;
     changeButtonColor(blockOne, "blockOne");
     changeButtonColor(blockTwo, "blockTwo");
+
+    changeImage(blockOne, blockTwo, "mainImage");
 
     if (blockOne == "Rain" || blockTwo =="Rain"){
         vartest = findNextTime();
@@ -171,18 +177,9 @@ function findNextTime(){
 
             }else{
                 document.getElementById("mainStatement").innerHTML = "Sorry looking at the weather forecast there doesn't look like a gap in the rain for the next 3 days, check back later";
-
             }
-
-
-        }
-        
+        }   
     }
     xhr.send(null);
 }
-
-function changeImage(){
-
-}
-
 

@@ -29,7 +29,8 @@ function test_guessAddress(usertext) {
 
     //console.log(JSON.stringify(lookupResults));
 
-    var lookupresults = JSON.parse(fetch(autocompleteUri).then((resp) => resp.json()));
+    var lookupresults = fetch(autocompleteUri).then(resolve).then(jsonify)
+        .catch(e => console.log('Fetch error:', err));
     console.log(lookupresults);
     return lookupresults.predictions[0];    
 }
@@ -60,9 +61,8 @@ function test_getWeatherData(lat, long) {
     }
     xhr.send(null); */
 
-    var weatherForcecast = JSON.parse(
-        fetch(fulluri).then((resp) => resp.json())
-    );
+    var weatherForcecast = fetch(fulluri).then(resolve).then(jsonify)
+        .catch(e => console.log('Fetch error:', err));
 
     console.log(weatherForcecast);
 
@@ -92,7 +92,8 @@ function test_getAddressLocation(prediction) {
     }
     xhr.send(null); */
 
-    var lookupResults = JSON.parse(fetch(detailsUri).then((resp) => resp.json()));
+    var lookupResults = fetch(detailsUri).then(resolve).then(jsonify)
+        .catch(e => console.log('Fetch error:', err));
     var locat = lookupResults.result.geometry.location;
     console.log(locat)
     return locat;
@@ -102,4 +103,14 @@ function test_integration() {
     var address = "6 Egremont St";
     var result = test_getWeatherForecastFromAddress(address);
     console.log(result);
+}
+
+function resolve(response) {
+    if(!res.ok) {throw new Error('Whoops!');}
+    return res;
+}
+
+function jsonify(response) {
+    var jason = response.json();
+    return JSON.parse(jason);
 }
