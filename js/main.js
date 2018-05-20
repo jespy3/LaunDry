@@ -82,11 +82,9 @@ function processWeatherData(forecastData){
     changeImage(blockOne, blockTwo, "mainImage");
 
     if (blockOne == "Rain" || blockTwo =="Rain"){
-        vartest = findNextTime();
-        
+        vartest = findNextTime(forecastData);
     } else {
        canHangWashing("You can hang your washing out it isn't due to rain for the next 6 hours");
-
     }
 
 }
@@ -183,11 +181,12 @@ function findNextTime(){
     xhr.send(null);
 }
 
+//changes the laundry image if it is raining or not
 function changeImage(blockOne, blockTwo, imageId){
-    if(blockOne || blockTwo == "Rain"){
-        document.getElementById(mainImage).src = "images/no.gif";
+    if(blockOne =="rain" || blockTwo == "Rain"){
+        document.getElementById(imageId).src = "images/rainy2.gif";
     }else{
-        document.getElementById(mainImage).src = "images/yes.gif"
+        document.getElementById(imageId).src = "images/ok.gif"
     }
 
 }
