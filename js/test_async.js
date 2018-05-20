@@ -34,7 +34,7 @@ function test_guessAddress(usertext) {
     console.log(lookupresults);
     return lookupresults.predictions[0];  */   
     fetch(autocompleteUri).then(resolve).then(jsonify).then(resp => console.log(resp))
-        .then(resp => {return resp.predictions[0]})
+        .then(resp => {test_getAddressLocation(resp.predictions[0])})
         .catch(e => console.log('Fetch error:', err));
     //console.log(lookupresults);
     //return lookupresults.predictions[0]; 
