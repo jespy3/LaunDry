@@ -114,3 +114,9 @@ function jsonify(response) {
     var jason = response.json();
     return JSON.parse(jason);
 }
+
+function lookupUserAddress() {
+    var address = document.getElementById('addressBox').value;
+    var result = test_lookupAddressLocation(address);
+    console.log(result);
+}
